@@ -1,8 +1,9 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "mortonroofing",
+  "account_id": "9ff0a64ab164f27c1a232b9ed64eccf8",
   "compatibility_date": "2026-07-08",
   "assets": {
-    "directory": "."
+    "directory": "./public"
   }
 }

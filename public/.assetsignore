@@ -1,8 +1,8 @@
+node_modules
 .git
 .gitignore
 README.md
 wrangler.jsonc
-.assetsignore
 package.json
 package-lock.json
-node_modules
+.assetsignore

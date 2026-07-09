@@ -76,12 +76,13 @@ Alternatively, connect a Cloudflare Worker or use Cloudflare Email Routing to re
 
 ```
 Mortonroofing-co/
-├── index.html          # Main page (all sections)
-├── css/
-│   └── styles.css      # Styles
-├── js/
-│   └── main.js         # Navigation, form, animations
-├── _headers            # Cloudflare Pages security headers
+├── public/
+│   ├── index.html      # Main page (all sections)
+│   ├── css/styles.css
+│   ├── js/main.js
+│   └── _headers
+├── wrangler.jsonc      # Cloudflare Workers deploy config
+├── package.json
 └── README.md
 ```
 
