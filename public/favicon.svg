@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Morton Roofing">
+  <rect width="32" height="32" rx="7" fill="#0f2744"/>
+  <path d="M5 15.5 16 7l11 8.5V26H5V15.5Z" fill="#e8941a"/>
+  <path d="M12 26v-7h8v7H12Z" fill="#0f2744"/>
+</svg>
