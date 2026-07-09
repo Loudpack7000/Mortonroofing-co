@@ -846,6 +846,29 @@ p {
   color: var(--color-amber-dark);
 }
 
+.contact__details a[href^="mailto:"] {
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn--outline-dark {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+}
+
+.btn--outline-dark:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+  border-color: var(--color-navy);
+}
+
 .map-placeholder {
   background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 100%);
   border-radius: var(--radius-lg);

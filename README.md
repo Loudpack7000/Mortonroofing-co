@@ -20,6 +20,8 @@ Woodridge, Naperville, Bolingbrook, Joliet, Calumet City, and surrounding Chicag
 
 **Phone:** [331-481-3708](tel:3314813708)
 
+**Email:** [public.adjustingoffice@gmail.com](mailto:public.adjustingoffice@gmail.com)
+
 ---
 
 ## Updating the Website
@@ -57,18 +59,12 @@ If not yet connected, follow these steps in the [Cloudflare Dashboard](https://d
 
 ## Contact Form Setup
 
-The inspection form uses [FormSubmit](https://formsubmit.co/) to deliver submissions via email.
+The inspection form uses [FormSubmit](https://formsubmit.co/) to deliver submissions to **public.adjustingoffice@gmail.com**.
 
 **First-time setup:**
 
-1. Open `index.html` and find the form `action` attribute
-2. Replace the email address with your real business email:
-   ```html
-   action="https://formsubmit.co/YOUR-EMAIL@example.com"
-   ```
-3. Submit the form once on the live site — FormSubmit sends a confirmation email to activate it
-
-Alternatively, connect a Cloudflare Worker or use Cloudflare Email Routing to receive form submissions at `@mortonroofing.best`.
+1. Submit the form once on the live site after deploy.
+2. Check **public.adjustingoffice@gmail.com** for a FormSubmit activation email and confirm it.
 
 ---
 
