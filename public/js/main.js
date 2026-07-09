@@ -39,16 +39,66 @@
     }, { passive: true });
   }
 
-  // Form submission with fetch (FormSubmit)
+  // Form submission with fetch (FormSubmit) + rate limiting
   var form = document.getElementById('inspectionForm');
+  var FORM_RATE_KEY = 'morton_form_timestamps';
+  var FORM_RATE_LIMIT = 5;
+  var FORM_RATE_WINDOW_MS = 60000;
+
+  function getRecentFormSubmissions() {
+    try {
+      var stored = JSON.parse(localStorage.getItem(FORM_RATE_KEY) || '[]');
+      var cutoff = Date.now() - FORM_RATE_WINDOW_MS;
+      return stored.filter(function (ts) { return ts > cutoff; });
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function recordFormSubmission() {
+    var recent = getRecentFormSubmissions();
+    recent.push(Date.now());
+    localStorage.setItem(FORM_RATE_KEY, JSON.stringify(recent));
+  }
+
+  function showFormError(message) {
+    var errorEl = document.getElementById('formError');
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.hidden = false;
+    }
+  }
+
+  function clearFormError() {
+    var errorEl = document.getElementById('formError');
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.hidden = true;
+    }
+  }
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      clearFormError();
+
+      var honeypot = form.querySelector('[name="_honey"]');
+      if (honeypot && honeypot.value) {
+        return;
+      }
+
+      var recentSubmissions = getRecentFormSubmissions();
+      if (recentSubmissions.length >= FORM_RATE_LIMIT) {
+        showFormError('Too many requests. Please wait a minute before submitting again, or call 331-481-3708.');
+        return;
+      }
 
       var submitBtn = form.querySelector('[type="submit"]');
       var originalText = submitBtn.textContent;
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
+
+      recordFormSubmission();
 
       var formData = new FormData(form);
 
@@ -72,7 +122,7 @@
         .catch(function () {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
-          window.location.href = 'tel:3314813708';
+          showFormError('Something went wrong. Please try again or call 331-481-3708.');
         });
     });
   }
