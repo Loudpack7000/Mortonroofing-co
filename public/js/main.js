@@ -98,31 +98,47 @@
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
 
-      recordFormSubmission();
-
       var formData = new FormData(form);
+      var payload = {};
+      formData.forEach(function (value, key) {
+        payload[key] = value;
+      });
 
       fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify(payload)
       })
         .then(function (response) {
-          if (response.ok) {
+          return response.json().catch(function () {
+            throw new Error('Unable to reach the form service. Please call 331-481-3708.');
+          });
+        })
+        .then(function (data) {
+          if (data.success === 'true' || data.success === true) {
+            recordFormSubmission();
             form.innerHTML =
               '<div class="form--success">' +
               '<h3>Request Received!</h3>' +
               '<p>Thank you for contacting Morton Roofing. We\'ll be in touch within one business day.</p>' +
               '<p style="margin-top:1rem">Need immediate help? Call <a href="tel:3314813708">331-481-3708</a></p>' +
               '</div>';
-          } else {
-            throw new Error('Form submission failed');
+            return;
           }
+
+          var message = data.message || 'Something went wrong. Please try again or call 331-481-3708.';
+          if (message.indexOf('Activation') !== -1) {
+            message = 'Form activation required — check public.adjustingoffice@gmail.com for a FormSubmit activation email and click the link, then try again.';
+          }
+          throw new Error(message);
         })
-        .catch(function () {
+        .catch(function (err) {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
-          showFormError('Something went wrong. Please try again or call 331-481-3708.');
+          showFormError(err.message || 'Something went wrong. Please try again or call 331-481-3708.');
         });
     });
   }
