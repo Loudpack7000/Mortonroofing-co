@@ -79,11 +79,12 @@
         <div class="hero__form-card" id="contact">
           <h2>Request a Free Inspection</h2>
           <p>See if you qualify for a new roof or insurance claim assistance.</p>
-          <form class="form" id="inspectionForm" action="https://formsubmit.co/ajax/public.adjustingoffice@gmail.com" method="POST">
+          <form class="form" id="inspectionForm" action="https://formsubmit.co/public.adjustingoffice@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="New Free Inspection Request — Morton Roofing">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" style="display:none">
+            <input type="hidden" name="_next" value="https://www.mortonroofing.best/?sent=1#contact">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form__group">
               <label for="name">Full Name</label>
               <input type="text" id="name" name="name" required placeholder="Your name">

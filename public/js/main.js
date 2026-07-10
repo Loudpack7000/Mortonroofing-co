@@ -1,6 +1,13 @@
 (function () {
   'use strict';
 
+  var FORM_SUCCESS_HTML =
+    '<div class="form--success">' +
+    '<h3>Request Received!</h3>' +
+    '<p>Thank you for contacting Morton Roofing. We\'ll be in touch within one business day.</p>' +
+    '<p style="margin-top:1rem">Need immediate help? Call <a href="tel:3314813708">331-481-3708</a></p>' +
+    '</div>';
+
   // Footer year
   var yearEl = document.getElementById('year');
   if (yearEl) {
@@ -39,7 +46,7 @@
     }, { passive: true });
   }
 
-  // Form submission with fetch (FormSubmit) + rate limiting
+  // Form submission (native POST via FormSubmit) + rate limiting
   var form = document.getElementById('inspectionForm');
   var FORM_RATE_KEY = 'morton_form_timestamps';
   var FORM_RATE_LIMIT = 5;
@@ -77,69 +84,44 @@
     }
   }
 
+  function showFormSuccess() {
+    if (form) {
+      form.innerHTML = FORM_SUCCESS_HTML;
+    }
+  }
+
   if (form) {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('sent') === '1') {
+      showFormSuccess();
+      if (window.history.replaceState) {
+        window.history.replaceState({}, '', window.location.pathname + '#contact');
+      }
+    }
+
     form.addEventListener('submit', function (e) {
-      e.preventDefault();
       clearFormError();
 
       var honeypot = form.querySelector('[name="_honey"]');
       if (honeypot && honeypot.value) {
+        e.preventDefault();
         return;
       }
 
       var recentSubmissions = getRecentFormSubmissions();
       if (recentSubmissions.length >= FORM_RATE_LIMIT) {
+        e.preventDefault();
         showFormError('Too many requests. Please wait a minute before submitting again, or call 331-481-3708.');
         return;
       }
 
+      recordFormSubmission();
+
       var submitBtn = form.querySelector('[type="submit"]');
-      var originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-
-      var formData = new FormData(form);
-      var payload = {};
-      formData.forEach(function (value, key) {
-        payload[key] = value;
-      });
-
-      fetch(form.action, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-        .then(function (response) {
-          return response.json().catch(function () {
-            throw new Error('Unable to reach the form service. Please call 331-481-3708.');
-          });
-        })
-        .then(function (data) {
-          if (data.success === 'true' || data.success === true) {
-            recordFormSubmission();
-            form.innerHTML =
-              '<div class="form--success">' +
-              '<h3>Request Received!</h3>' +
-              '<p>Thank you for contacting Morton Roofing. We\'ll be in touch within one business day.</p>' +
-              '<p style="margin-top:1rem">Need immediate help? Call <a href="tel:3314813708">331-481-3708</a></p>' +
-              '</div>';
-            return;
-          }
-
-          var message = data.message || 'Something went wrong. Please try again or call 331-481-3708.';
-          if (message.indexOf('Activation') !== -1) {
-            message = 'Form activation required — check public.adjustingoffice@gmail.com for a FormSubmit activation email and click the link, then try again.';
-          }
-          throw new Error(message);
-        })
-        .catch(function (err) {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          showFormError(err.message || 'Something went wrong. Please try again or call 331-481-3708.');
-        });
+      if (submitBtn) {
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+      }
     });
   }
 
