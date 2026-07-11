@@ -1163,7 +1163,15 @@ p {
 }
 
 /* Legal pages */
-.legal-page {
+.reviews-widget {
+  min-height: 200px;
+  overflow: hidden;
+}
+
+.reviews-widget .ti-widget {
+  margin: 0 auto;
+}
+
   padding: 3rem 0 5rem;
   background: var(--color-off-white);
 }
