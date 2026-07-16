@@ -136,7 +136,7 @@
     });
   }, observerOptions);
 
-  document.querySelectorAll('.service-card, .benefit-card, .process-step, .stat-card').forEach(function (el) {
+  document.querySelectorAll('.service-card, .benefit-card, .process-step, .stat-card, .gallery-card').forEach(function (el) {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
