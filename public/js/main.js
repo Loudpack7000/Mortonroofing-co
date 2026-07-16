@@ -95,7 +95,7 @@
     if (params.get('sent') === '1') {
       showFormSuccess();
       if (window.history.replaceState) {
-        window.history.replaceState({}, '', window.location.pathname + '#contact');
+        window.history.replaceState({}, '', window.location.pathname);
       }
     }
 

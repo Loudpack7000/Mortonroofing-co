@@ -73,11 +73,21 @@ The inspection form uses [FormSubmit](https://formsubmit.co/) to deliver submiss
 ```
 Mortonroofing-co/
 ├── public/
-│   ├── index.html      # Main page (all sections)
+│   ├── index.html         # Homepage
+│   ├── services.html
+│   ├── insurance.html
+│   ├── work.html
+│   ├── reviews.html
+│   ├── areas.html
+│   ├── faq.html
+│   ├── contact.html
+│   ├── privacy.html
+│   ├── sitemap.xml
+│   ├── robots.txt
 │   ├── css/styles.css
 │   ├── js/main.js
-│   └── _headers
-├── wrangler.jsonc      # Cloudflare Workers deploy config
+│   └── images/
+├── wrangler.jsonc
 ├── package.json
 └── README.md
 ```

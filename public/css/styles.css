@@ -282,8 +282,13 @@ p {
   font-weight: 500;
 }
 
-.nav__list a:hover {
+.nav__list a:hover,
+.nav__list a[aria-current="page"] {
   color: var(--color-amber-dark);
+}
+
+.nav__list a[aria-current="page"] {
+  font-weight: 600;
 }
 
 .header__cta {
@@ -1286,6 +1291,119 @@ p {
   .gallery-card--featured img {
     height: 240px;
     min-height: 240px;
+  }
+}
+
+/* Inner page hero */
+.page-hero {
+  padding: 3.5rem 0 2.5rem;
+  background:
+    linear-gradient(135deg, rgba(15, 39, 68, 0.94) 0%, rgba(26, 58, 92, 0.9) 100%),
+    url("../images/work-in-progress.jpg") center 40% / cover no-repeat;
+  color: var(--color-white);
+}
+
+.page-hero--dark {
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 100%);
+}
+
+.page-hero .eyebrow {
+  color: var(--color-amber-light);
+}
+
+.page-hero h1 {
+  color: var(--color-white);
+  max-width: 720px;
+}
+
+.page-hero p {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+  font-size: 1.0625rem;
+}
+
+.section__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.section__cta-note {
+  max-width: 480px;
+}
+
+.services-grid--home {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.section--cta {
+  padding: 3.5rem 0;
+}
+
+.cta-banner--standalone {
+  margin: 0;
+}
+
+.trust-strip {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.trust-strip__media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.trust-strip__media img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.trust-strip__content .check-list {
+  margin: 1.5rem 0 2rem;
+}
+
+.trust-strip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact__aside .contact__details {
+  margin: 0;
+}
+
+.contact__aside .contact__photo {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .services-grid--home {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-strip {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .trust-strip__media img {
+    height: 280px;
   }
 }
 
